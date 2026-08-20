@@ -1,0 +1,434 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:YKWHome.App.ViewModels"
+        xmlns:saves="using:YKWHome.Core.Saves"
+        x:Class="YKWHome.App.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="YKW Home — Cloud"
+        Width="1200" Height="750"
+        MinWidth="800" MinHeight="500"
+        Background="#1E1E2E"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Assets/AppIcon.ico">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="Bg" Color="#1E1E2E"/>
+        <SolidColorBrush x:Key="Surface" Color="#282A36"/>
+        <SolidColorBrush x:Key="Panel" Color="#313244"/>
+        <SolidColorBrush x:Key="Border" Color="#45475A"/>
+        <SolidColorBrush x:Key="Hover" Color="#44475A"/>
+        <SolidColorBrush x:Key="Empty" Color="#232334"/>
+        <SolidColorBrush x:Key="Accent" Color="#89B4FA"/>
+        <SolidColorBrush x:Key="Green" Color="#A6E3A1"/>
+        <SolidColorBrush x:Key="Yellow" Color="#F9E2AF"/>
+        <SolidColorBrush x:Key="Red" Color="#F38BA8"/>
+        <SolidColorBrush x:Key="Mauve" Color="#CBA6F7"/>
+        <SolidColorBrush x:Key="Text" Color="#CDD6F4"/>
+        <SolidColorBrush x:Key="Text2" Color="#A6ADC8"/>
+        <SolidColorBrush x:Key="Team" Color="#F9E2AF"/>
+        <SolidColorBrush x:Key="Discord" Color="#5865F2"/>
+    </Window.Resources>
+
+    <DockPanel>
+        <!-- ═══ Rail (left nav) ═══ -->
+        <Border DockPanel.Dock="Left" Width="64" Background="{StaticResource Surface}"
+                BorderBrush="{StaticResource Border}" BorderThickness="0,0,1,0">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Bottom" Spacing="4" Margin="0,0,0,12">
+                    <Button Classes="nav" Command="{Binding NavigateToCommand}" CommandParameter="settings">
+                        <StackPanel HorizontalAlignment="Center">
+                            <PathIcon Data="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.04 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.04 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"
+                                     Width="20" Height="20" Foreground="{StaticResource Text2}"/>
+                            <TextBlock Text="Settings" FontSize="9" Foreground="{StaticResource Text2}"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <StackPanel Spacing="4" Margin="0,12,0,0">
+                    <Button Classes="nav active" Command="{Binding NavigateToCommand}" CommandParameter="home">
+                        <StackPanel HorizontalAlignment="Center">
+                            <PathIcon Data="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"
+                                     Width="20" Height="20" Foreground="{StaticResource Accent}"/>
+                            <TextBlock Text="Home" FontSize="9" Foreground="{StaticResource Accent}"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Classes="nav" Command="{Binding NavigateToCommand}" CommandParameter="cloud">
+                        <StackPanel HorizontalAlignment="Center">
+                            <PathIcon Data="M17.5,19C19.98,19 22,16.98 22,14.5C22,12.77 20.96,11.27 19.43,10.64C19.27,7.57 16.67,5.13 13.5,5C13.33,2.74 11.41,1 9.08,1C5.71,1 3,3.71 3,7.08C1.79,7.57 1,8.92 1,10.5C1,12.43 2.57,14 4.5,14H17.5C19.98,14 22,16.02 22,18.5C22,20.98 19.98,23 17.5,23H6.5C4.02,23 2,20.98 2,18.5"
+                                     Width="20" Height="20" Foreground="{StaticResource Text2}"/>
+                            <TextBlock Text="Cloud" FontSize="9" Foreground="{StaticResource Text2}"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- ═══ Left Panel ═══ -->
+        <Border DockPanel.Dock="Left" Width="230" Background="{StaticResource Surface}"
+                BorderBrush="{StaticResource Border}" BorderThickness="0,0,1,0">
+            <DockPanel Margin="10,14">
+                <!-- Auth bar -->
+                <Border DockPanel.Dock="Top" Background="{StaticResource Panel}" CornerRadius="8"
+                        Padding="8" Margin="0,0,0,10">
+                    <DockPanel>
+                        <Button Content="Sign In" Classes="auth-btn" Command="{Binding ShowLoginCommand}"
+                                IsVisible="{Binding !IsLoggedIn}" DockPanel.Dock="Left"/>
+                        <StackPanel IsVisible="{Binding IsLoggedIn}" DockPanel.Dock="Left"
+                                    Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                            <Border Width="28" Height="28" CornerRadius="14"
+                                    Background="{StaticResource Panel}" BorderBrush="{StaticResource Team}"
+                                    BorderThickness="2">
+                                <TextBlock Text="👤" FontSize="14" HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock Text="{Binding UserDisplayName}" FontSize="12" FontWeight="Bold"
+                                       Foreground="{StaticResource Text}" VerticalAlignment="Center"
+                                       MaxWidth="100" TextTrimming="CharacterEllipsis"/>
+                            <Button Content="Logout" Classes="small-btn" Command="{Binding LogoutCommand}"
+                                    Background="{StaticResource Red}" Foreground="White"/>
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+
+                <!-- Save list header -->
+                <TextBlock DockPanel.Dock="Top" Text="Saves" FontSize="15" FontWeight="Bold"
+                           Foreground="{StaticResource Text}" Margin="0,0,0,10"/>
+
+                <!-- Save cards -->
+                <ScrollViewer DockPanel.Dock="Top">
+                    <ItemsControl ItemsSource="{Binding Games}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="saves:GameInfo">
+                                <Border Classes="save-card" CornerRadius="10" Padding="10" Margin="0,0,0,8"
+                                        BorderBrush="{StaticResource Border}" BorderThickness="1"
+                                        Background="{StaticResource Panel}">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding GameName}" FontSize="12" FontWeight="Bold"
+                                                   Foreground="{StaticResource Text}"/>
+                                        <TextBlock Foreground="{StaticResource Text2}" FontSize="10">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} Yo-kai">
+                                                    <Binding Path="YokaiCount"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <!-- Action buttons -->
+                <StackPanel DockPanel.Dock="Bottom" Spacing="6" Margin="0,8,0,0">
+                    <Button Content="Open Save…" Classes="action-btn" Command="{Binding OpenSaveFileCommand}"
+                            Background="{StaticResource Accent}" Foreground="#1E1E2E"/>
+                    <Button Content="Import Yokai…" Classes="action-btn"
+                            Background="{StaticResource Panel}" Foreground="{StaticResource Text2}"/>
+                    <Button Content="Save Yokai to Cloud" Classes="action-btn green-btn"
+                            Command="{Binding SaveYokaiToCloudCommand}"
+                            IsVisible="{Binding IsLoggedIn}"/>
+                    <TextBlock Classes="hint"
+                               Text="Open a .yw save file — select head.yw together with game1.yw if available."
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- ═══ Center ═══ -->
+        <Panel>
+            <!-- Welcome state -->
+            <StackPanel IsVisible="{Binding !SelectedGame}" HorizontalAlignment="Center"
+                        VerticalAlignment="Center" Spacing="16">
+                <TextBlock Text="🏠 YKW Home" FontSize="24" FontWeight="Bold"
+                           Foreground="{StaticResource Text}" HorizontalAlignment="Center"/>
+                <TextBlock Text="Cross-platform Yo-kai Watch save viewer. Open a .yw file to browse your yokai."
+                           Foreground="{StaticResource Text2}" FontSize="13" TextAlignment="Center"
+                           MaxWidth="400" TextWrapping="Wrap"/>
+                <Button Content="Open Save…" Command="{Binding OpenSaveFileCommand}"
+                        Background="{StaticResource Accent}" Foreground="#1E1E2E"
+                        CornerRadius="8" Padding="32,12" HorizontalAlignment="Center"
+                        FontWeight="Bold"/>
+            </StackPanel>
+
+            <!-- Box view -->
+            <DockPanel IsVisible="{Binding SelectedGame}">
+                <!-- Box header -->
+                <Border DockPanel.Dock="Top" Background="{StaticResource Surface}"
+                        BorderBrush="{StaticResource Border}" BorderThickness="0,0,0,1"
+                        Padding="16,12">
+                    <DockPanel>
+                        <TextBlock Text="{Binding SelectedGame.GameName}" FontSize="15" FontWeight="Bold"
+                                   Foreground="{StaticResource Text}" VerticalAlignment="Center"/>
+                        <TextBlock DockPanel.Dock="Right" Foreground="{StaticResource Text2}" FontSize="13"
+                                   VerticalAlignment="Center">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} Yo-kai">
+                                    <Binding Path="SelectedGame.YokaiCount"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DockPanel>
+                </Border>
+
+                <!-- Grid -->
+                <ScrollViewer>
+                    <WrapPanel Margin="12">
+                        <ItemsControl ItemsSource="{Binding YokaiGrid}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="saves:YokaiEntry">
+                                    <Border Width="80" Height="90" CornerRadius="6"
+                                            Background="{StaticResource Empty}" Margin="2"
+                                            Cursor="Hand" BorderBrush="{StaticResource Border}"
+                                            BorderThickness="1">
+                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                    Spacing="2">
+                                            <Border Width="56" Height="56" CornerRadius="6"
+                                                    Background="{StaticResource Panel}">
+                                                <TextBlock Text="🍡" FontSize="24"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"/>
+                                            </Border>
+                                            <TextBlock Text="{Binding Name}" FontSize="9"
+                                                       Foreground="{StaticResource Text}"
+                                                       TextAlignment="Center" MaxWidth="72"
+                                                       TextTrimming="CharacterEllipsis"/>
+                                            <TextBlock Foreground="{StaticResource Yellow}" FontSize="8"
+                                                       HorizontalAlignment="Center">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="Lv.{0}">
+                                                        <Binding Path="Level"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </WrapPanel>
+                </ScrollViewer>
+            </DockPanel>
+        </Panel>
+
+        <!-- ═══ Right Panel ═══ -->
+        <Border DockPanel.Dock="Right" Width="240" Background="{StaticResource Surface}"
+                BorderBrush="{StaticResource Border}" BorderThickness="1,0,0,0"
+                IsVisible="{Binding SelectedYokai}">
+            <ScrollViewer Margin="10,14">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="DETAIL" FontSize="11" FontWeight="Bold"
+                               Foreground="{StaticResource Text2}" Margin="0,0,0,4"/>
+                    <!-- Icon -->
+                    <Border Width="100" Height="100" CornerRadius="10"
+                            Background="{StaticResource Panel}" HorizontalAlignment="Center"
+                            BorderBrush="{StaticResource Border}" BorderThickness="1">
+                        <TextBlock Text="🍡" FontSize="48"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <!-- Name -->
+                    <TextBlock Text="{Binding SelectedYokai.Name}" FontSize="16" FontWeight="Bold"
+                               Foreground="{StaticResource Text}" TextAlignment="Center"/>
+                    <TextBlock Text="{Binding SelectedYokai.Signature}" FontSize="10"
+                               Foreground="{StaticResource Text2}" TextAlignment="Center"/>
+                    <!-- Info card -->
+                    <Border Background="{StaticResource Panel}" CornerRadius="8"
+                            BorderBrush="{StaticResource Border}" BorderThickness="1"
+                            Padding="12" Margin="0,4">
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="INFO" FontSize="11" FontWeight="Bold"
+                                       Foreground="{StaticResource Yellow}" Margin="0,0,0,4"/>
+                            <DockPanel><TextBlock Text="Level" Foreground="{StaticResource Text2}"
+                                                  FontSize="11" DockPanel.Dock="Left"/>
+                                <TextBlock Text="{Binding SelectedYokai.Level}" FontWeight="Bold"
+                                           Foreground="{StaticResource Text}" FontSize="11"
+                                           HorizontalAlignment="Right" FontFamily="monospace"/></DockPanel>
+                            <DockPanel><TextBlock Text="HP" Foreground="{StaticResource Text2}"
+                                                  FontSize="11" DockPanel.Dock="Left"/>
+                                <TextBlock Text="{Binding SelectedYokai.HP}" FontWeight="Bold"
+                                           Foreground="{StaticResource Text}" FontSize="11"
+                                           HorizontalAlignment="Right" FontFamily="monospace"/></DockPanel>
+                            <DockPanel><TextBlock Text="YP" Foreground="{StaticResource Text2}"
+                                                  FontSize="11" DockPanel.Dock="Left"/>
+                                <TextBlock Text="{Binding SelectedYokai.YP}" FontWeight="Bold"
+                                           Foreground="{StaticResource Text}" FontSize="11"
+                                           HorizontalAlignment="Right" FontFamily="monospace"/></DockPanel>
+                            <DockPanel><TextBlock Text="XP" Foreground="{StaticResource Text2}"
+                                                  FontSize="11" DockPanel.Dock="Left"/>
+                                <TextBlock Text="{Binding SelectedYokai.XP}" FontWeight="Bold"
+                                           Foreground="{StaticResource Text}" FontSize="11"
+                                           HorizontalAlignment="Right" FontFamily="monospace"/></DockPanel>
+                        </StackPanel>
+                    </Border>
+                    <!-- Stats card -->
+                    <Border Background="{StaticResource Panel}" CornerRadius="8"
+                            BorderBrush="{StaticResource Border}" BorderThickness="1"
+                            Padding="12">
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="STATS" FontSize="11" FontWeight="Bold"
+                                       Foreground="{StaticResource Yellow}" Margin="0,0,0,4"/>
+                            <DockPanel><TextBlock Text="HP+" Foreground="{StaticResource Green}"
+                                                  FontSize="11" DockPanel.Dock="Left"/>
+                                <TextBlock Text="{Binding SelectedYokai.HpPlus}" FontWeight="Bold"
+                                           Foreground="{StaticResource Green}" FontSize="11"
+                                           HorizontalAlignment="Right" FontFamily="monospace"/></DockPanel>
+                            <DockPanel><TextBlock Text="YP+" Foreground="{StaticResource Accent}"
+                                                  FontSize="11" DockPanel.Dock="Left"/>
+                                <TextBlock Text="{Binding SelectedYokai.YpPlus}" FontWeight="Bold"
+                                           Foreground="{StaticResource Accent}" FontSize="11"
+                                           HorizontalAlignment="Right" FontFamily="monospace"/></DockPanel>
+                            <DockPanel><TextBlock Text="PA+" Foreground="{StaticResource Red}"
+                                                  FontSize="11" DockPanel.Dock="Left"/>
+                                <TextBlock Text="{Binding SelectedYokai.PaPlus}" FontWeight="Bold"
+                                           Foreground="{StaticResource Red}" FontSize="11"
+                                           HorizontalAlignment="Right" FontFamily="monospace"/></DockPanel>
+                            <DockPanel><TextBlock Text="SA+" Foreground="{StaticResource Mauve}"
+                                                  FontSize="11" DockPanel.Dock="Left"/>
+                                <TextBlock Text="{Binding SelectedYokai.SaPlus}" FontWeight="Bold"
+                                           Foreground="{StaticResource Mauve}" FontSize="11"
+                                           HorizontalAlignment="Right" FontFamily="monospace"/></DockPanel>
+                            <DockPanel><TextBlock Text="ST+" Foreground="{StaticResource Text2}"
+                                                  FontSize="11" DockPanel.Dock="Left"/>
+                                <TextBlock Text="{Binding SelectedYokai.StPlus}" FontWeight="Bold"
+                                           Foreground="{StaticResource Text}" FontSize="11"
+                                           HorizontalAlignment="Right" FontFamily="monospace"/></DockPanel>
+                            <DockPanel><TextBlock Text="SP+" Foreground="{StaticResource Text2}"
+                                                  FontSize="11" DockPanel.Dock="Left"/>
+                                <TextBlock Text="{Binding SelectedYokai.SpPlus}" FontWeight="Bold"
+                                           Foreground="{StaticResource Text}" FontSize="11"
+                                           HorizontalAlignment="Right" FontFamily="monospace"/></DockPanel>
+                        </StackPanel>
+                    </Border>
+                    <!-- Export -->
+                    <Button Content="💾 Export Save" Command="{Binding ExportSaveFileCommand}"
+                            Background="{StaticResource Yellow}" Foreground="#1E1E2E"
+                            CornerRadius="8" Padding="0,8" FontWeight="Bold"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- ═══ Status Bar ═══ -->
+        <Border DockPanel.Dock="Bottom" Background="#181825" Padding="12,6">
+            <DockPanel>
+                <TextBlock Text="{Binding StatusMessage}" Foreground="{StaticResource Text2}" FontSize="12"/>
+                <ProgressBar DockPanel.Dock="Right" IsIndeterminate="True"
+                             IsVisible="{Binding IsLoading}"
+                             Width="120" VerticalAlignment="Center" Margin="8,0"/>
+            </DockPanel>
+        </Border>
+
+        <!-- ═══ Auth Modal ═══ -->
+        <Border IsVisible="{Binding ShowAuthModal}" Background="#80000000"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                ZIndex="100">
+            <Border Background="{StaticResource Surface}" CornerRadius="12"
+                    Width="400" Padding="20" HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <StackPanel Spacing="12">
+                    <DockPanel>
+                        <TextBlock Text="Sign In" FontSize="18" FontWeight="Bold"
+                                   Foreground="{StaticResource Text}"/>
+                        <Button Content="✕" DockPanel.Dock="Right"
+                                Command="{Binding CloseAuthModalCommand}"
+                                Background="Transparent" Foreground="{StaticResource Text2}"
+                                FontSize="16" Padding="8,4"/>
+                    </DockPanel>
+                    <!-- Tabs -->
+                    <Border Background="{StaticResource Panel}" CornerRadius="8"
+                            BorderBrush="{StaticResource Border}" BorderThickness="1">
+                        <DockPanel>
+                            <Button Content="Login" DockPanel.Dock="Left"
+                                    Command="{Binding ShowLoginCommand}"
+                                    Classes="auth-tab active"/>
+                            <Button Content="Sign Up"
+                                    Command="{Binding ShowSignupCommand}"
+                                    Classes="auth-tab"/>
+                        </DockPanel>
+                    </Border>
+                    <TextBox Text="{Binding AuthEmail}" PlaceholderText="Email"
+                             Background="{StaticResource Bg}" Foreground="{StaticResource Text}"
+                             BorderBrush="{StaticResource Border}"/>
+                    <TextBox Text="{Binding AuthPassword}" PlaceholderText="Password" PasswordChar="•"
+                             Background="{StaticResource Bg}" Foreground="{StaticResource Text}"
+                             BorderBrush="{StaticResource Border}"/>
+                    <!-- Name field (signup only) -->
+                    <TextBox Text="{Binding AuthName}" PlaceholderText="Display Name"
+                             Background="{StaticResource Bg}" Foreground="{StaticResource Text}"
+                             BorderBrush="{StaticResource Border}"
+                             IsVisible="{Binding IsSignUpMode}"/>
+                    <CheckBox Content="Remember me" IsChecked="{Binding AuthRememberMe}"
+                              Foreground="{StaticResource Text2}"/>
+                    <Button Content="{Binding AuthButtonText}" Command="{Binding LoginWithEmailCommand}"
+                            Background="{StaticResource Accent}" Foreground="#1E1E2E"
+                            CornerRadius="8" Padding="0,10" FontWeight="Bold"/>
+                    <TextBlock Text="— OR —" HorizontalAlignment="Center"
+                               Foreground="{StaticResource Text2}" FontSize="12"/>
+                    <Button Content="🟣 Login with Discord"
+                            Command="{Binding LoginWithDiscordCommand}"
+                            Background="{StaticResource Discord}" Foreground="White"
+                            CornerRadius="8" Padding="0,10" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+        </Border>
+    </DockPanel>
+
+    <Window.Styles>
+        <Style Selector="Button.nav">
+            <Setter Property="Width" Value="52"/>
+            <Setter Property="Height" Value="52"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style Selector="Button.nav:pointerover">
+            <Setter Property="Background" Value="{StaticResource Hover}"/>
+        </Style>
+        <Style Selector="Button.auth-btn">
+            <Setter Property="Background" Value="{StaticResource Accent}"/>
+            <Setter Property="Foreground" Value="#1E1E2E"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style Selector="Button.action-btn">
+            <Setter Property="Background" Value="{StaticResource Panel}"/>
+            <Setter Property="Foreground" Value="{StaticResource Text2}"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="0,10"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style Selector="Button.green-btn">
+            <Setter Property="Background" Value="{StaticResource Green}"/>
+            <Setter Property="Foreground" Value="#1E1E2E"/>
+        </Style>
+        <Style Selector="Button.small-btn">
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="CornerRadius" Value="4"/>
+        </Style>
+        <Style Selector="TextBlock.hint">
+            <Setter Property="Foreground" Value="{StaticResource Text2}"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="LineHeight" Value="14"/>
+        </Style>
+        <Style Selector="Button.auth-tab">
+            <Setter Property="Background" Value="{StaticResource Panel}"/>
+            <Setter Property="Foreground" Value="{StaticResource Text2}"/>
+            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="Padding" Value="0,10"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style Selector="Button.auth-tab.active">
+            <Setter Property="Background" Value="{StaticResource Accent}"/>
+            <Setter Property="Foreground" Value="#1E1E2E"/>
+        </Style>
+    </Window.Styles>
+</Window>

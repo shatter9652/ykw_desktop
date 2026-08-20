@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="YKWHome.App/YKWHome.App.csproj" />
+  <Project Path="YKWHome.Core/YKWHome.Core.csproj" />
+</Solution>
