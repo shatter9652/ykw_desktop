@@ -1,0 +1,110 @@
+name: Build YKW Home
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: '10.0.x'
+
+jobs:
+  # ── Linux (amd64 + arm64) ────────────────────────────
+  linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rid: [linux-x64, linux-arm64]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Publish
+        run: dotnet publish YKWHome.App/YKWHome.App.csproj -c Release -r ${{ matrix.rid }} -o output/linux-${{ matrix.rid }} --self-contained
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: YKWHome-linux-${{ matrix.rid }}
+          path: output/linux-${{ matrix.rid }}/
+
+  # ── macOS (x86_64 + arm64) ──────────────────────────
+  macos:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        rid: [osx-x64, osx-arm64]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Publish
+        run: dotnet publish YKWHome.App/YKWHome.App.csproj -c Release -r ${{ matrix.rid }} -o output/macos-${{ matrix.rid }} --self-contained
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: YKWHome-macos-${{ matrix.rid }}
+          path: output/macos-${{ matrix.rid }}/
+
+  # ── Windows (x64 + arm64) ───────────────────────────
+  windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        rid: [win-x64, win-arm64]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Publish
+        run: dotnet publish YKWHome.App/YKWHome.App.csproj -c Release -r ${{ matrix.rid }} -o output/windows-${{ matrix.rid }} --self-contained
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: YKWHome-windows-${{ matrix.rid }}
+          path: output/windows-${{ matrix.rid }}/
+
+  # ── Android (universal APK) ─────────────────────────
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Install Android workload
+        run: dotnet workload install android
+      - name: Publish Android
+        run: dotnet publish YKWHome.App/YKWHome.App.csproj -c Release -r android-arm64 -f net10.0-android -o output/android --self-contained
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: YKWHome-android
+          path: output/android/*.apk
+
+  # ── iOS (macOS runner required) ─────────────────────
+  ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Install iOS workload
+        run: dotnet workload install ios
+      - name: Publish iOS
+        run: dotnet publish YKWHome.App/YKWHome.App.csproj -c Release -r ios-arm64 -f net10.0-ios -o output/ios --self-contained
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: YKWHome-ios
+          path: output/ios/

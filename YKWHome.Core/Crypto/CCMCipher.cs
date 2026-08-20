@@ -75,7 +75,7 @@ public class CCMCipher
     /// B_0 = flags || nonce || length
     /// flags = M'*8 + L' where M' = (t-2)/2 = 7, L' = L-1
     /// </summary>
-    private static byte[] CalculateMac(byte[] nonce, byte[] data, int lPrime)
+    private byte[] CalculateMac(byte[] nonce, byte[] data, int lPrime)
     {
         // M' = (M - 2) / 2 = 7
         byte flag = (byte)((8 * ((M - 2) / 2)) + lPrime);
